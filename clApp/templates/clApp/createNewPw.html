@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="path/to/bootstrap-show-password.css">
+    <script src="path/to/bootstrap-show-password.js"></script>
+    <title>CoverLetterGenius</title>
+</head>
+<body>
+{% for message in messages %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Success!</strong> {{ message }}
+</div>
+{% elif message.tags == 'error' %}
+<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Error!</strong> {{ message }}
+</div>
+{% elif message.tags == 'warning' %}
+<div class="alert alert-warning alert-dismissible">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Warning!</strong> {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+<section>
+    <!--      style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">-->
+    <br>
+    <div class="container my-5 text-center" style="max-width:1500px;">
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body p-5">
+                                <h2 class="text-uppercase text-center mb-5">Create a new password</h2>
+
+                                <form method="post" >
+                                    {% csrf_token %}
+                                    <div class="input-group mb-4">
+                                        <span class="input-group-text">email's code</span>
+                                        <input type="text" id="code" name="code"
+                                               class="form-control form-control-lg {% if form.code.errors %}is-invalid{% endif %}"
+                                               placeholder="Enter the email's code"/>
+                                        {% for error in form.email.errors %}
+                                        <div class="invalid-feedback">
+                                            {{ error }}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="form-outline mb-4">
+                                        <label for="email" class="form-label">Email address</label>
+                                        <input type="email" id="email" name="email"
+                                               class="form-control form-control-lg {% if form.email.errors %}is-invalid{% endif %}"
+                                               placeholder="Enter email"/>
+                                        {% for error in form.email.errors %}
+                                        <div class="invalid-feedback">
+                                            {{ error }}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="form-outline mb-4">
+                                        <label for="password" class="form-label">New password</label>
+                                        <input type="password" id="password" name="password"
+                                               class="form-control form-control-lg {% if form.password.errors %}is-invalid{% endif %}"
+                                               placeholder="New password"/>
+                                        {% for error in form.password.errors %}
+                                        <div class="invalid-feedback">
+                                            {{ error }}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label for="confirm_password" class="form-label">Confirm new password</label>
+                                        <input type="password" id="confirm_password" name="confirm_password"
+                                               class="form-control form-control-lg {% if form.confirm_password.errors %}is-invalid{% endif %}"
+                                               placeholder="Repeat new password"/>
+                                        {% for error in form.confirm_password.errors %}
+                                        <div class="invalid-feedback">
+                                            {{ error }}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+
+                                    <!--                      <div class="form-check d-flex justify-content-center mb-5">-->
+                                    <!--                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />-->
+                                    <!--                        <label class="form-check-label" for="form2Example3g">-->
+                                    <!--                          I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>-->
+                                    <!--                        </label>-->
+                                    <!--                      </div>-->
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit"
+                                                class="btn btn-primary btn-block btn-lg gradient-custom-4 text-body">
+                                            Send
+                                        </button>
+                                    </div>
+
+                                    <p class="text-center text-muted mt-5 mb-0"><a
+                                            href="/signin"
+                                            class="fw-bold text-body"><u>Login here</u></a></p>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+-->
+</body>
+</html>
+

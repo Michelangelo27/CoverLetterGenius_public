@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+
+    <!--  Fonts    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+
+    <style>
+    .lobster {
+      font-family: 'Lobster', cursive;
+      }
+    .robotoCondensed{
+        font-family: 'Roboto Condensed', sans-serif;
+      }
+    .breeSerif{
+      font-family: 'Bree Serif', serif;
+      }
+    }
+
+    </style>
+</head>
+<body>
+
+
+{% include "clApp/logged_in_navbar.html" %}
+
+
+<div class="container py-5 text-center" style="max-width:1500px;">
+    {% include "clApp/message_handler.html" %}
+    <div class="card-body">
+        <div class="m-4">
+            <h2 class="border-bottom pb-3 mb-4 breeSerif">Add Here Your Personal Information</h2>
+            <!-- todo menage form erros and final edit-->
+            <form class="needs-validation" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="yourInfo">
+                <div class="row mb-3 form-group">
+                    <label class="col-sm-2 col-form-label">Name:</label>
+                    <div class="col-sm-3">
+                        <input type="text" id="name" name="name"
+                               class="form-control form-control {% if form.name.errors %}is-invalid{% endif %}"
+                               placeholder="Name"
+                               value="{% if form.name.value %}{{ form.name.value }}{% endif %}"/>
+                        {% for error in form.name.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <label class="col-sm-1 col-form-label">I am</label>
+                    <div class="col-sm-3">
+                        <select class="form-select" id="status" name="status">
+                            <option value="0" {% if form.status.value == 0 %}selected{% endif %}>Working</option>
+                            <option value="1" {% if form.status.value == 1 %}selected{% endif %}>Studying</option>
+                            <option value="2" {% if form.status.value == 2 %}selected{% endif %}>Unemployed</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3 form-group">
+                    <label class="col-sm-2 col-form-label" for="hard_skills">Hard Skills:</label>
+                    <div class="col-sm-9">
+                        <input type="text"
+                               class="form-control form-control {% if form.hard_skills.errors %}is-invalid{% endif %}"
+                               id="hard_skills" name="hard_skills"
+                               placeholder="Excel, Python, Pandas... "
+                               value="{% if form.hard_skills.value %}{{ form.hard_skills.value }}{% endif %}"/>
+                        {% for error in form.hard_skills.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="Soft_skills">Soft skills:</label>
+                    <div class="col-sm-9">
+                        <input type="text"
+                               class="form-control form-control {% if form.soft_skills.errors %}is-invalid{% endif %}"
+                               id="soft_skills" name="soft_skills"
+                               placeholder="Teamwork, Problem-solving, Dependability, Critical thinking, Positive attitude, Organisation, ..."
+                               value="{% if form.soft_skills.value %}{{ form.soft_skills.value }}{% endif %}">
+                        {% for error in form.Soft_skills.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="education">Education:</label>
+                    <div class="col-sm-9">
+    <textarea rows="6" class="form-control {% if form.education.errors %}is-invalid{% endif %}" id="education"
+              name="education"
+              placeholder="You can write here your Education:
+-I graduated from Politecnico di Milano in Computer Engineering,
+-I have obtained the qualifying certificate to become a lawyer
+-I took an online data science course">{% if form.education.value %}{{ form.education.value }}{% endif %}</textarea>
+                        {% for error in form.education.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="work_experience">Work Experience:</label>
+                    <div class="col-sm-9">
+    <textarea rows="6" class="form-control {% if form.work_experience.errors %}is-invalid{% endif %}" id="work_experience"
+              name="work_experience"
+              placeholder="You can write here your work experience experience:
+-I carried out my thesis in the field of _____ within the company ______
+-I gained 5 years of experience in the role of ________ in companies such as _______ and _______ using tools like _______ , _______"
+    >{% if form.work_experience.value %}{{ form.work_experience.value }}{% endif %}</textarea>
+                        {% for error in form.work_experience.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="hobbies">hobbies:</label>
+                    <div class="col-sm-9">
+                        <input type="text"
+                               class="form-control form-control {% if form.hobbies.errors %}is-invalid{% endif %}"
+                               id="hobbies" name="hobbies"
+                               placeholder="Cooking, travells, fine art, cinematography "
+                        value="{% if form.hobbies.value %}{{ form.hobbies.value }}{% endif %}">
+                        {% for error in form.education.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-9 offset-sm-5 text-center text-lg-start mt-4 pt-2">
+                        <button type="submit" id="save-btn" name="save-btn" class="btn btn-primary btn-lg"
+                                style="margin: auto; width: 200px;">Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+-->
+</body>
+</html>0

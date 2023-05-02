@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!--  Fonts    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+
+    <style>
+    .lobster {
+      font-family: 'Lobster', cursive;
+      }
+    .robotoCondensed{
+        font-family: 'Roboto Condensed', sans-serif;
+      }
+    .breeSerif{
+      font-family: 'Bree Serif', serif;
+      }
+    }
+
+    </style>
+
+    <title>CoverLetterGenius</title>
+</head>
+<body>
+<!--    navbar  -->
+<div class="m-2">
+    <nav id="myNavbar" class="navbar navbar-expand-lg navbar-light bg-primary navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a href="{% url 'landing_page' %}" class="navbar-brand text-bg-primary"><h3 class="text-white lobster">
+                CoverLetterGenius</h3></a>
+        </div>
+    </nav>
+</div>
+
+<!-- add the message handler-->
+{% include "clApp/message_handler.html" %}
+
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<div class="container my-5 text-center" style="max-width:1500px;">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 ">
+                <!--              to add an image-->
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                     class="img-fluid" alt="Sample image">
+                <h1 class="text-primary">CoverLetterGenius</h1>
+                <p class="lead">CoverLetterGenius is a web application that helps you create a cover letter for your job
+                    application.</p>
+            </div>
+            <div class="col-md-8 my-8 col-lg-4 col-xl-4 offset-xl-1">
+                <form method="post">
+                    {% csrf_token %}
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="email" id="email" name="email"
+                               class="form-control form-control-lg {% if form.email.errors %}is-invalid{% endif %}"
+                               placeholder="Enter a valid email address"/>
+                        {% for error in form.email.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="password" name="password"
+                               class="form-control form-control-lg {% if form.password.errors %}is-invalid{% endif %}"
+                               placeholder="Enter password"/>
+                        {% for error in form.password.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <button type="button" class="btn btn-link" style="box-shadow: none" data-bs-toggle="modal"
+                            data-bs-target="#resetPwModal">
+                        Forgot password?
+                    </button>
+
+                    <div class="d-grid gap-2 text-center text-lg-start mt-4 pt-2">
+                        <button type="submit" class="btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login
+                        </button>
+                    </div>
+                    <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a
+                            href="/signup"
+                            class="fw-bold text-body"><u>Register</u></a></p>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5 text-center" style="max-width:1500px;">
+        <form method="post">
+            {% csrf_token %}
+            <!-- define the hidden modal form to reset password -->
+            <div class="modal" id="resetPwModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header h5 text-white bg-primary justify-content-center">
+                            Password Reset
+                        </div>
+                        <div class="modal-body px-5">
+                            <p class="py-2">
+                                Enter your email address and we'll send you an email with
+                                a code to reset your password.
+                            </p>
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <input type="email" id="resetPwEmail" name="resetPwEmail"
+                                       class="form-control form-control-lg {% if form.email.errors %}is-invalid{% endif %}"
+                                       placeholder="Enter a valid email address"/>
+                                {% for error in form.email.errors %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <a href="/signin" class="btn btn-primary w-100">Reset password</a>
+                            <div class="d-flex justify-content-between mt-4">
+                                <a class="" href="/signin">Login</a>
+                                <a class="" href="/signup">Register</a>
+                            </div>
+                        </div>
+
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

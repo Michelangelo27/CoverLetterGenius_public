@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--  importing  J-Query-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!--  Fonts    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+
+    <style>
+    .lobster {
+      font-family: 'Lobster', cursive;
+      }
+    .robotoCondensed{
+        font-family: 'Roboto Condensed', sans-serif;
+      }
+    .breeSerif{
+      font-family: 'Bree Serif', serif;
+
+    }
+    </style>
+
+    <title>CoverLetterGenius</title>
+</head>
+
+
+<body>
+
+<!--    todo use logged_in_navbar-->
+<nav id="myNavbar" class="navbar navbar-light bg-primary navbar-dark fixed-top">
+    <div class="container-fluid">
+        <a href="{% url 'home' %}" class="navbar-brand text-bg-primary"><h3 class="text-white lobster">
+            CoverLetterGenius</h3></a>
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a href="{% url 'yourinfo' %}" class="nav-link text-white font-weight-bold">Your Info</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'subscription' %}" class="nav-link text-white font-weight-bold">Subscription</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+</br>
+</br>
+</br>
+
+<!-- add the message handler-->
+{% include "clApp/message_handler.html" %}
+
+  <div class="container">
+        <h1 class="mt-4 mb-4">Subscription Management</h1>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                Current Subscription
+            </div>
+            <div class="card-body">
+                <!-- Display current subscription details, e.g., plan, status, next billing date, etc. -->
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                Payment Methods
+            </div>
+            <div class="card-body">
+                <!-- Display user's payment methods -->
+                <p class="mb-4">Your payment methods will be listed here.</p>
+                <a href="{% url 'add_payment_method' %}" class="btn btn-primary">Add Payment Method</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                Cancel Subscription
+            </div>
+            <div class="card-body">
+                <p class="mb-4">Your subscription will remain active until the end of the current billing cycle.</p>
+                <button type="button" class="btn btn-danger" onclick="cancelSubscription()">Cancel Subscription</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function cancelSubscription() {
+            // Call the cancel_subscription view to cancel the user's subscription
+            // You can use AJAX (e.g., Fetch API) to send a request to the view
+        }
+    </script>
+
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
